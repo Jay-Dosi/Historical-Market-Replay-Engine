@@ -1,5 +1,5 @@
--- Enable TimescaleDB extension
-CREATE EXTENSION IF NOT EXISTS timescaledb CASCADE;
+-- Enable TimescaleDB extension (COMMENTED OUT FOR FREE DEPLOYMENT ON NEON/SUPABASE)
+-- CREATE EXTENSION IF NOT EXISTS timescaledb CASCADE;
 
 -- Main market ticks hypertable
 CREATE TABLE IF NOT EXISTS market_ticks
@@ -17,13 +17,13 @@ CREATE TABLE IF NOT EXISTS market_ticks
     PRIMARY KEY (ts, id)
 );
 
--- Convert to TimescaleDB hypertable partitioned by 1-day chunks
-SELECT create_hypertable(
-    'market_ticks',
-    'ts',
-    chunk_time_interval => INTERVAL '1 day',
-    if_not_exists => TRUE
-);
+-- Convert to TimescaleDB hypertable partitioned by 1-day chunks (COMMENTED OUT FOR FREE DEPLOYMENT)
+-- SELECT create_hypertable(
+--     'market_ticks',
+--     'ts',
+--     chunk_time_interval => INTERVAL '1 day',
+--     if_not_exists => TRUE
+-- );
 
 -- Primary query pattern: symbol + time range
 CREATE INDEX IF NOT EXISTS idx_market_ticks_symbol_ts
